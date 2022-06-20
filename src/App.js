@@ -1,9 +1,8 @@
-import { Input, List, Button, Space } from "antd";
+import { Input, List, Button, Space, Checkbox } from "antd";
+import { CloseOutlined } from '@ant-design/icons';
 import { useState } from "react";
 
-
 const App = () => {
-
   const data = [
     "Racing car sprays burning fuel into crowd.",
     "Japanese princess to wed commoner.",
@@ -11,6 +10,7 @@ const App = () => {
     "Man charged over missing wedding girl.",
     "Los Angeles battles huge wildfires.",
   ];
+
   const [dataList, setDataList] = useState(data);
 
   const [title, setTitle] = useState("");
@@ -32,12 +32,17 @@ const App = () => {
       });
     }, 6000);
 
-    setDataList((prev) =>{
-      return [...prev,title]});
+    setDataList((prev) => {
+      return [...prev, title];
+    });
   };
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
+  };
+
+  const handleCheck = (index) => {
+    console.log(index);
   };
 
   return (
@@ -69,9 +74,20 @@ const App = () => {
           size="small"
           header={<div>Header</div>}
           footer={<div>Footer</div>}
-          bordered
           dataSource={dataList}
-          renderItem={(item) => <List.Item>{item}</List.Item>}
+          renderItem={(item, index) => {
+            return (
+              <List.Item>
+                <Checkbox onChange={() => handleCheck(index)}>{item}</Checkbox>
+                <Button
+                type="danger"
+                icon={<CloseOutlined />}
+                loading={loadings[2]}
+                onClick={() => enterLoading(2)}
+              />
+              </List.Item>
+            );
+          }}
         />
       </Space>
     </>
