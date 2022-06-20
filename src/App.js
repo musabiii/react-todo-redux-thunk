@@ -1,8 +1,14 @@
 import { Input, List, Button, Space, Checkbox } from "antd";
 import { CloseOutlined } from '@ant-design/icons';
 import { useState } from "react";
-
+import { useSelector, useDispatch } from 'react-redux'
+import { addTodo } from "./store/todosReducer";
 const App = () => {
+
+  const initialTodos = useSelector((state) => state.todos.todos);
+  console.log("initialTodos",initialTodos);
+  const dispatch = useDispatch()
+
   const data = [
     "Racing car sprays burning fuel into crowd.",
     "Japanese princess to wed commoner.",
@@ -31,6 +37,8 @@ const App = () => {
         return newLoadings;
       });
     }, 6000);
+
+    dispatch(addTodo())
 
     setDataList((prev) => {
       return [...prev, title];
@@ -74,7 +82,7 @@ const App = () => {
           size="small"
           header={<div>Header</div>}
           footer={<div>Footer</div>}
-          dataSource={dataList}
+          dataSource={initialTodos}
           renderItem={(item, index) => {
             return (
               <List.Item>
