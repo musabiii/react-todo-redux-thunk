@@ -32,7 +32,8 @@ const App = () => {
       });
     }, 6000);
 
-    setDataList((prev) => prev.push(title));
+    setDataList((prev) =>{
+      return [...prev,title]});
   };
 
   const handleChangeTitle = (e) => {
