@@ -3,6 +3,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo,removeTodo } from "./store/todosReducer";
+import InputHeader from "./components/inputHeader";
 const App = () => {
   const initialTodos = useSelector((state) => state.todos.todos);
   const dispatch = useDispatch();
@@ -54,22 +55,8 @@ const handleRemove=(id)=>{
         size="middle"
         style={{ display: "flex" }}
       >
-        <Input.Group compact>
-          <Input
-            value={title}
-            onChange={handleChangeTitle}
-            style={{ width: "500px" }}
-            defaultValue=""
-          />
 
-          <Button
-            type="primary"
-            loading={loadings[0]}
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button>
-        </Input.Group>
+        <InputHeader/>
 
         <List
           dataSource={initialTodos}
