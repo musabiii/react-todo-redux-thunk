@@ -1,35 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 export const todosReducer = createSlice({
-  name: 'counter',
+  name: "todos",
   initialState: {
     value: 0,
-    todos:[
-      "Racing car sprays burning fuel into crowd.",
-      "Japanese princess to wed commoner.",
-      "Australian walks 100km after outback crash.",
-      "Man charged over missing wedding girl.",
-      "Los Angeles battles huge wildfires.",
-    ]
+    todos: [{ id: 1, title: "first", done: false }],
   },
   reducers: {
-    increment: (state) => {
-      state.value += 1
+    addTodo: ({ todos }, action) => {
+      if (!action.payload) return;
+      todos.push({ id: +new Date(), title: action.payload, done: false });
     },
-    decrement: (state) => {
-      state.value -= 1
+    removeTodo: ({ todos }, action) => {
+      console.log("remove todo", action);
+      const index = todos.findIndex((el) => el.id === action.payload);
+      todos.splice(index, 1);
     },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
-    },
-    addTodo:({todos})=>{
-      // console.log("action",action)
-        todos.push('somenew')
-    }
   },
-})
-console.log("todosReducer",todosReducer)
+});
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount,addTodo } = todosReducer.actions
+export const { addTodo, removeTodo } = todosReducer.actions;
 
-export default todosReducer.reducer
+export default todosReducer.reducer;

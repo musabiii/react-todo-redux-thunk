@@ -1,23 +1,11 @@
 import { Input, List, Button, Space, Checkbox } from "antd";
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux'
-import { addTodo } from "./store/todosReducer";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo,removeTodo } from "./store/todosReducer";
 const App = () => {
-
   const initialTodos = useSelector((state) => state.todos.todos);
-  console.log("initialTodos",initialTodos);
-  const dispatch = useDispatch()
-
-  const data = [
-    "Racing car sprays burning fuel into crowd.",
-    "Japanese princess to wed commoner.",
-    "Australian walks 100km after outback crash.",
-    "Man charged over missing wedding girl.",
-    "Los Angeles battles huge wildfires.",
-  ];
-
-  const [dataList, setDataList] = useState(data);
+  const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
 
@@ -38,11 +26,7 @@ const App = () => {
       });
     }, 6000);
 
-    dispatch(addTodo())
 
-    setDataList((prev) => {
-      return [...prev, title];
-    });
   };
 
   const handleChangeTitle = (e) => {
@@ -52,6 +36,15 @@ const App = () => {
   const handleCheck = (index) => {
     console.log(index);
   };
+
+const handleSubmit=()=>{
+  dispatch(addTodo(title));
+  setTitle("");
+}
+
+const handleRemove=(id)=>{
+  dispatch(removeTodo(id));
+}
 
   return (
     <>
@@ -72,27 +65,24 @@ const App = () => {
           <Button
             type="primary"
             loading={loadings[0]}
-            onClick={(e) => enterLoading(e, 0)}
+            onClick={handleSubmit}
           >
             Submit
           </Button>
         </Input.Group>
 
         <List
-          size="small"
-          header={<div>Header</div>}
-          footer={<div>Footer</div>}
           dataSource={initialTodos}
           renderItem={(item, index) => {
             return (
               <List.Item>
-                <Checkbox onChange={() => handleCheck(index)}>{item}</Checkbox>
+                <Checkbox onChange={() => handleCheck(index)}>{item.title}</Checkbox>
                 <Button
-                type="danger"
-                icon={<CloseOutlined />}
-                loading={loadings[2]}
-                onClick={() => enterLoading(2)}
-              />
+                  type="danger"
+                  icon={<CloseOutlined />}
+                  loading={loadings[2]}
+                  onClick={()=>handleRemove(item.id)}
+                />
               </List.Item>
             );
           }}
