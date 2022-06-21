@@ -1,80 +1,26 @@
-import { Input, List, Button, Space, Checkbox } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addTodo,removeTodo } from "./store/todosReducer";
+import { Space } from "antd";
+import { Col, Row } from 'antd';
 import InputHeader from "./components/inputHeader";
+import ListTodo from "./components/listTodo";
+import { Layout } from "antd";
+const { Content } = Layout;
+
 const App = () => {
-  const initialTodos = useSelector((state) => state.todos.todos);
-  const dispatch = useDispatch();
-
-  const [title, setTitle] = useState("");
-
-  const [loadings, setLoadings] = useState([]);
-
-  const enterLoading = (e, index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        return newLoadings;
-      });
-    }, 6000);
-
-
-  };
-
-  const handleChangeTitle = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const handleCheck = (index) => {
-    console.log(index);
-  };
-
-const handleSubmit=()=>{
-  dispatch(addTodo(title));
-  setTitle("");
-}
-
-const handleRemove=(id)=>{
-  dispatch(removeTodo(id));
-}
-
   return (
     <>
-      <Space
+    <Row offset={6} style={{margin:10}}>
+      <Col >
+          {/* <Space
         direction="vertical"
         align="center"
         size="middle"
         style={{ display: "flex" }}
-      >
-
-        <InputHeader/>
-
-        <List
-          dataSource={initialTodos}
-          renderItem={(item, index) => {
-            return (
-              <List.Item>
-                <Checkbox onChange={() => handleCheck(index)}>{item.title}</Checkbox>
-                <Button
-                  type="danger"
-                  icon={<CloseOutlined />}
-                  loading={loadings[2]}
-                  onClick={()=>handleRemove(item.id)}
-                />
-              </List.Item>
-            );
-          }}
-        />
-      </Space>
+      > */}
+          <InputHeader />
+          <ListTodo />
+      </Col>
+    </Row>
+          {/* </Space> */}
     </>
   );
 };
