@@ -15,11 +15,11 @@ export default function InputHeader() {
 
   const handleSubmit = () => {
     setLoading(true);
-    dispatch(addTodo(title));
-    setTitle("");
     setTimeout(() => {
+      dispatch(addTodo(title));
       setLoading(false);
-    }, 2000);
+      setTitle("");
+    }, 1000);
   };
 
   const handleKeyDown = (e) => {
@@ -33,7 +33,7 @@ export default function InputHeader() {
       <Input
         value={title}
         onChange={handleChangeTitle}
-        style={{ width: "500px" }}
+        style={{ width: "300px" }}
         defaultValue=""
         onKeyDown={handleKeyDown}
       />
