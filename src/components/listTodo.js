@@ -1,13 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { List } from "antd";
 import ListItem from "./listItem";
-import {getTodos} from "../utils/supabase"
+import { getTodosAction } from "../store/actions/todoAction";
 
 export default function ListTodo() {
   const initialTodos = useSelector((state) => state.todos.todos);
+  const dispatch = useDispatch();
 
-  getTodos().then(res=>console.log(res))
+  dispatch(getTodosAction());
+
 
   return (
     <List
