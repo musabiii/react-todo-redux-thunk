@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { List } from "antd";
 import ListItem from "./listItem";
@@ -8,8 +8,9 @@ export default function ListTodo() {
   const initialTodos = useSelector((state) => state.todos.todos);
   const dispatch = useDispatch();
 
-  dispatch(getTodosAction());
-
+  useEffect(() => {
+    dispatch(getTodosAction());
+  }, []);
 
   return (
     <List

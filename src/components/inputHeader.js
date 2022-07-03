@@ -1,6 +1,7 @@
 import { Button, Input } from "antd";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { addTodoAction } from "../store/actions/todoAction";
 import { addTodo } from "../store/todosReducer";
 
 export default function InputHeader() {
@@ -13,8 +14,11 @@ export default function InputHeader() {
 
   const dispatch = useDispatch();
 
+
   const handleSubmit = () => {
+    dispatch(addTodoAction(title))
     setLoading(true);
+
     setTimeout(() => {
       dispatch(addTodo(title));
       setLoading(false);

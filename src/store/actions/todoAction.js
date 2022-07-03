@@ -2,10 +2,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addTodoSupa,
   deleteTodoSupa,
-  getTodos,
+  getTodosSupa,
   updateTodoSupa,
 } from "../../utils/supabase";
 
 export const getTodosAction = createAsyncThunk("todos", async () => {
-  return await getTodos();
+  return await getTodosSupa();
 });
+
+export const addTodoAction = createAsyncThunk("todos", async (title) => {
+  return await addTodoSupa(title);
+});
+

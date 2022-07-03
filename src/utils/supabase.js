@@ -4,7 +4,7 @@ const supabaseUrl = "https://wfsmiseslpfpbioyfiqw.supabase.co";
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export const getTodos = async () => {
+export const getTodosSupa = async () => {
   try {
     let { data: todos } = await supabase.from("todos").select("*");
     return todos;
