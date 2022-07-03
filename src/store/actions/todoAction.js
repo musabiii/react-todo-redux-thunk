@@ -14,8 +14,8 @@ export const addTodoAction = createAsyncThunk("todos/addTodoAction", async (titl
   return await addTodoSupa(title);
 });
 
-export const deleteTodoAction = createAsyncThunk("todos/deleteTodoAction", async (title) => {
-  return await deleteTodoSupa(title);
+export const deleteTodoAction = createAsyncThunk("todos/deleteTodoAction", async (id) => {
+  return await deleteTodoSupa(id);
 });
 
 export const updateTodoAction = createAsyncThunk("todos/updateTodoAction", async (title) => {

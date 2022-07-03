@@ -21,10 +21,6 @@ export const todosReducer = createSlice({
     },
     fetchTodos: ({ todos }, action) => {},
   },
-  // extraReducers: (bulder) => {
-  //   console.log("getTodosAction.pending",getTodosAction.pending)
-  //   console.log("addTodoAction.pending",getTodosAction.pending)
-  // },
   extraReducers: {
     [getTodosAction.pending]: (state, action) => {
       console.log("pending list", action);
@@ -51,14 +47,20 @@ export const todosReducer = createSlice({
       console.log("rejected add", action);
       state.loading = false;
     },
-    [deleteTodoAction.pending]: (state, action) => {
+    [deleteTodoAction.pending]: (state, action,...args) => {
+      // state.loadingDelete = true;
       console.log("pending delete", action);
+      state.loadingDelete = action.meta.arg;
     },
     [deleteTodoAction.fulfilled]: (state, action) => {
+      // state.loadingDelete = false;
       console.log("fulfilled delete", action);
+      state.loadingDelete = null;
+      state.todos = state.todos.filter(el=>el.id !== action.meta.arg)
     },
     [deleteTodoAction.rejected]: (state, action) => {
       console.log("rejected delete", action);
+      state.loadingDelete = null;
     },
   },
 });

@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import { List, Button, Checkbox } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { removeTodo } from "../store/todosReducer";
 import { CloseOutlined } from "@ant-design/icons";
 import { deleteTodoAction } from "../store/actions/todoAction";
 
 export default function ListItem(item,index) {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+  const loadingDelete = useSelector((state) => state.todos.loadingDelete);
+
 
   const handleCheck = (index) => {
     console.log(index);
   };
 
   const handleRemove = (id) => {
-      // dispatch(deleteTodoAction(id));
+      dispatch(deleteTodoAction(id));
   };
 
   return (
@@ -23,7 +24,7 @@ export default function ListItem(item,index) {
       <Button
         type="danger"
         icon={<CloseOutlined />}
-        loading={loading}
+        loading={item.item.id===loadingDelete}
         onClick={() => handleRemove(item.item.id)}
       />
     </List.Item>
