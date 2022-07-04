@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { List,Spin } from "antd";
+import { List,Spin,Space } from "antd";
 import ListItem from "./listItem";
 import { getTodosAction } from "../store/actions/todoAction";
 
@@ -13,7 +13,8 @@ export default function ListTodo() {
     dispatch(getTodosAction());
   }, []);
 
-  if (loadingList) return  <Spin size="large" />
+  if (loadingList) {
+    return  <Space><Spin size="large" /></Space>}
 
   return (
     <List

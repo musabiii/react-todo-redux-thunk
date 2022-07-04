@@ -3,15 +3,15 @@ import { List, Button, Checkbox } from "antd";
 import { useDispatch,useSelector } from "react-redux";
 import { removeTodo } from "../store/todosReducer";
 import { CloseOutlined } from "@ant-design/icons";
-import { deleteTodoAction } from "../store/actions/todoAction";
+import { deleteTodoAction, updateTodoAction } from "../store/actions/todoAction";
 
 export default function ListItem(item,index) {
   const dispatch = useDispatch();
   const loadingDelete = useSelector((state) => state.todos.loadingDelete);
 
 
-  const handleCheck = (index) => {
-    console.log(index);
+  const handleCheck = (e) => {
+    dispatch(updateTodoAction({...item.item,done:e.target.checked}));
   };
 
   const handleRemove = (id) => {
@@ -20,7 +20,7 @@ export default function ListItem(item,index) {
 
   return (
     <List.Item>
-      <Checkbox onChange={() => handleCheck(index)}>{item.item.title}</Checkbox>
+      <Checkbox checked={item.item.done} onChange={(e) => handleCheck(e)}>{item.item.title}</Checkbox>
       <Button
         type="danger"
         icon={<CloseOutlined />}
