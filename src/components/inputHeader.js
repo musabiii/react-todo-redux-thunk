@@ -1,29 +1,22 @@
 import { Button, Input } from "antd";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import {useSelector, useDispatch } from "react-redux";
 import { addTodoAction } from "../store/actions/todoAction";
-import { addTodo } from "../store/todosReducer";
 
 export default function InputHeader() {
   const [title, setTitle] = useState("");
-  const [loading, setLoading] = useState(false);
+  const loading = useSelector((state) => state.todos.loading);
+  const dispatch = useDispatch();
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
   };
 
-  const dispatch = useDispatch();
-
-
   const handleSubmit = () => {
     dispatch(addTodoAction(title))
-    setLoading(true);
-
-    setTimeout(() => {
-      dispatch(addTodo(title));
-      setLoading(false);
-      setTitle("");
-    }, 1000);
+    .then(()=>{
+      setTitle('')
+    })
   };
 
   const handleKeyDown = (e) => {

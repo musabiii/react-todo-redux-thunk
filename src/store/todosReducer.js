@@ -35,17 +35,16 @@ export const todosReducer = createSlice({
       state.loading = true;
     },
     [addTodoAction.fulfilled]: (state, action) => {
+      state.todos.push(action.payload[0])
       state.loading = false;
     },
     [addTodoAction.rejected]: (state, action) => {
       state.loading = false;
     },
     [deleteTodoAction.pending]: (state, action,...args) => {
-      // state.loadingDelete = true;
       state.loadingDelete = action.meta.arg;
     },
     [deleteTodoAction.fulfilled]: (state, action) => {
-      // state.loadingDelete = false;
       state.loadingDelete = null;
       state.todos = state.todos.filter(el=>el.id !== action.meta.arg)
     },
